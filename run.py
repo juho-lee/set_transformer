@@ -128,7 +128,7 @@ def test(bench, verbose=True):
 
 def plot():
     net.eval()
-    X = mog.sample(B, N, K)
+    X = mog.sample(B, np.random.randint(N_min, N_max), K)
     pi, params = mvn.parse(net(X))
     ll, labels = mog.log_prob(X, pi, params, return_labels=True)
     fig, axes = plt.subplots(2, B//2, figsize=(7*B//5,5))
