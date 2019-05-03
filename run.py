@@ -60,7 +60,7 @@ def generate_benchmark():
         X, labels, pi, params = mog.sample(B, N, K, return_gt=True)
         ll += mog.log_prob(X, pi, params).item()
         data.append(X)
-    bench = [data, ll/100]
+    bench = [data, ll/args.num_bench]
     torch.save(bench, benchfile)
 
 save_dir = os.path.join('results', args.net, args.run_name)
