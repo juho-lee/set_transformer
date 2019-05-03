@@ -12,10 +12,6 @@ class DeepSet(nn.Module):
                 nn.ReLU(),
                 nn.Linear(dim_hidden, dim_hidden),
                 nn.ReLU(),
-                nn.Linear(dim_hidden, dim_hidden),
-                nn.ReLU(),
-                nn.Linear(dim_hidden, dim_hidden),
-                nn.ReLU(),
                 nn.Linear(dim_hidden, dim_hidden))
         self.dec = nn.Sequential(
                 nn.Linear(dim_hidden, dim_hidden),
@@ -37,7 +33,6 @@ class SetTransformer(nn.Module):
         super(SetTransformer, self).__init__()
         self.enc = nn.Sequential(
                 ISAB(dim_input, dim_hidden, num_heads, num_inds, ln=ln),
-                ISAB(dim_hidden, dim_hidden, num_heads, num_inds, ln=ln),
                 ISAB(dim_hidden, dim_hidden, num_heads, num_inds, ln=ln))
         self.dec = nn.Sequential(
                 PMA(dim_hidden, num_heads, num_outputs, ln=ln),
