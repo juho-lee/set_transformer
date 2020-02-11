@@ -1,9 +1,11 @@
 # set_transformer
+
 Official PyTorch implementation of the paper 
 [Set Transformer: A Framework for Attention-based Permutation-Invariant Neural Networks
 ](http://proceedings.mlr.press/v97/lee19d.html).
 
 ## Requirements
+
 - Python 3
 - torch >= 1.0
 - matplotlib
@@ -19,14 +21,22 @@ The model consists of an encoder and a decoder, both of which rely on attention 
 In an effort to reduce computational complexity, we introduce an attention scheme inspired by inducing point methods from sparse Gaussian process literature.
 It reduces the computation time of self-attention from quadratic to linear in the number of elements in the set.
  We show that our model is theoretically attractive and we evaluate it on a range of tasks, demonstrating the state-of-the-art performance compared to recent methods for set-structured data.
- 
-## Contents
 
-This repository implements the maximum value regression (section 5.1) and the amortized clustering (section 5.3) 
+## Experiments
+
+This repository implements the
+maximum value regression (section 5.1),
+amortized clustering (section 5.3),
+and point cloud classification (section 5.5)
 experiments in the [paper](http://proceedings.mlr.press/v97/lee19d.html).
-The maximum value regression experiment is reproduced in `max_regression_demo.ipynb`.
 
-To run amortized clustering experiment with Set Transformer, run
+### Maximum Value Regression
+
+This experiment is reproduced in `max_regression_demo.ipynb`.
+
+### Amortized Clustering
+
+To run the amortized clustering experiment with Set Transformer, run
 ```
 python run.py --net=set_transformer
 ```
@@ -34,7 +44,23 @@ To run the same experiment with Deep Sets, run
 ```
 python run.py --net=deepset
 ```
- 
+
+### Point Cloud Classification
+We used the same preprocessed ModelNet40 dataset used in the [DeepSets paper](https://papers.nips.cc/paper/6931-deep-sets).
+We cannot publicly share this file due to copyright and license issues.
+To run this code, you must obtain the preprocessed dataset "ModelNet40_cloud.h5".
+We recommend using multiple GPUs for this experiment; we used 8 Tesla P40s.
+
+To run the point cloud classification experiment, run
+```
+python main_pointcloud.py --batch_size 256 --num_pts 100
+python main_pointcloud.py --batch_size 256 --num_pts 1000
+python main_pointcloud.py --batch_size 256 --num_pts 5000
+```
+
+The hyperparameters here were minimally tuned yet reproduced the results in the paper.
+It is likely that further tuning will get better results.
+
 ## Reference
 
 If you found the provided code useful, please consider citing our work.
